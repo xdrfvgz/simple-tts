@@ -35,7 +35,6 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: |
-          u
           gradle wrapper 
           ./gradlew build
 
@@ -59,11 +58,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
-     - name: Setup Android environment
-        run: |
-            
-
+        
     # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
