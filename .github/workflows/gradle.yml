@@ -23,15 +23,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v2
 
+      # Generate Gradle Wrapper if it doesn't exist
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
+
+      # Build the project using the Gradle Wrapper
       - name: Build with Gradle Wrapper
         run: |
           ./gradlew assembleDebug
-        # Die erzeugte APK-Datei suchen und kopieren
-        - name: Find and copy APK
-          run: |
-            file=$(find . -name "*.apk" | head -n 1)
-            cp "$file" app-debug.apk
 
+      # Find and copy the APK file
+      - name: Find and copy APK
+        run: |
+          file=$(find . -name "*.apk" | head -n 1)
+          cp "$file" app-debug.apk
+
+      # Upload the APK file
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
