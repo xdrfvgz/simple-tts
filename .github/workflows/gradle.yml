@@ -37,6 +37,8 @@ jobs:
       run: |
         gradle wrapper 
         ./gradlew build
+        file=`find . -name "*.apk"`
+        cp $file .
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
@@ -67,3 +69,11 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3  # Aktualisiert auf v3
+      with:
+        name: app-debug.apk
+        path: /home/runner/app-debug.apk
+        if-no-files-found: error
